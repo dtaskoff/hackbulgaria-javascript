@@ -1,90 +1,62 @@
 'use strict';
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     var studentsList = [],
         generateTableHead = function (table, properties) {
-            var thead = document.createElement('thead'),
-                tr = document.createElement('tr');
-            properties.forEach(function (property) {
-                var th = document.createElement('th');
-                th.innerHTML = property;
-                tr.appendChild(th);
-            });
-            thead.appendChild(tr);
-            table.appendChild(thead);
+            table.append(['<thead>', '<tr>', '<th>',
+                properties.join('</th><th>'), '</th>',
+                '</tr>', '</thead>'].join(''));
         },
         generateTable = function (tableId, items, parentNode) {
-            var table = document.createElement('table'),
-                tbody = document.createElement('tbody');
+            var table = $('<table class="table"></table>'),
+                tbody = $('<tbody></tbody>');
+
             generateTableHead(table, ['id', 'name', 'course']);
             items.forEach(function (item) {
-                var row = document.createElement('tr'),
-                    itemID = document.createElement('td'),
-                    itemName = document.createElement('td'),
-                    itemCourse = document.createElement('td');
-                itemID.innerHTML = item.id;
-                itemName.innerHTML = item.name;
-                itemCourse.innerHTML = item.course;
-                row.setAttribute('id', 'student-' + item.id.toString());
-                row.appendChild(itemID);
-                row.appendChild(itemName);
-                row.appendChild(itemCourse);
-                tbody.appendChild(row);
+                var row = $('<tr><td>' +
+                    [item.id, item.name, item.course].join('</td><td>') +
+                    '</td></tr>');
+                row.attr('id', 'student-' + item.id);
+                tbody.append(row);
             });
-        table.appendChild(tbody);
-        table.setAttribute('id', tableId);
-        table.setAttribute('class', 'table');
-        parentNode.appendChild(table);
-    };
+            table.append(tbody);
+            parentNode.append(table);
+        };
 
-    $.getJSON('http://localhost:3000/students', function(students, textStatus) {
+    $.getJSON('http://localhost:3000/students', function (students, textStatus) {
+        var row = $('<div class="row"></div>');
         console.log(textStatus);
         studentsList = students;
-        var div = document.getElementById('students');
-        var row = document.createElement('div');
-        row.setAttribute('class', 'row');
-        div.appendChild(row);
+        $('.table-container').append(row);
         generateTable('init-table', studentsList, row);
     });
 
-    $('#group-btn').on('click', function() {
-        var initTable = document.getElementById('init-table'),
-            parentDiv = initTable.parentNode,
-            studentsSorted = groupBy(studentsList, 'course'),
-            div = document.getElementById('students'),
+    $('#group-btn').on('click', function () {
+        var tableContainer = $('.table-container'),
             counter = 0,
-            row = document.createElement('div');
-            row.setAttribute('class', 'row');
-        parentDiv.removeChild(initTable);
+            groupedStudents = groupBy(studentsList, 'course'),
+            row, col;
+        tableContainer.empty();
 
-        for (var students in studentsSorted) {
-            counter += 1;
-            var innerDiv = document.createElement('div');
-            innerDiv.setAttribute('class', 'col-xs-4');
-            generateTable(students, studentsSorted[students], innerDiv);
-            row.appendChild(innerDiv);
+        for (var group in groupedStudents) {
             if (counter % 3 === 0) {
-                div.appendChild(row);
-                row = document.createElement('div');
-                row.setAttribute('class', 'row');
+                row = $('<div class="row"></div>');
+                tableContainer.append(row);
             }
-        }
-        if (counter % 3 !== 0) {
-            div.appendChild(row);
+            col = $('<div class="col-xs-4"></div>');
+            generateTable(group, groupedStudents[group], col);
+            row.append(col);
+            counter += 1;
         }
     });
 
-    $('#search-btn').on('click', function() {
+    $('#search-btn').on('click', function () {
         var searched = $('#search-box').val(),
-            studentIds = searchFor(searched, studentsList),
-            oldTrs = document.getElementsByClassName('success');
-        for (var i = 0; i < oldTrs.length; i += 1) {
-            oldTrs[i].removeAttribute('class');
-        }
+            studentIds = searchFor(searched, studentsList);
+        $('.success').removeClass('success');
         studentIds.forEach(function (studentId) {
-            var tr = document.getElementById(studentId);
-            tr.setAttribute('class', 'success');
+            $('#' + studentId).addClass('success');
         });
     });
 });
@@ -105,7 +77,7 @@ var searchFor = function (searched, objects) {
     var ids = [];
     console.log(objects);
     objects.forEach(function (obj) {
-        if (obj.name.split(' ').indexOf(searched) > -1) {
+        if (obj.name.indexOf(searched) > -1) {
             ids.push('student-' + obj.id);
         }
     });
