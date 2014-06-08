@@ -47,10 +47,6 @@ $(document).ready(function () {
         });
 });
 
-var getGithub = function (students, name) {
-    console.log(name);
-};
-
 var groupBy = function (list, func) {
     var result = {},
         current;
