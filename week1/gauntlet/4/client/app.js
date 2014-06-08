@@ -2,55 +2,65 @@
 
 
 $(document).ready(function () {
-    var studentsList = [];
+    var groupedStudents = {},
+        selectedStudents = [];
+
     $('#course-pick').on('change', function () {
-        var selectedStudents = getStudentsByCourse(studentsList, $(this).val());
+        selectedStudents = groupedStudents[$(this).val()];
+
         $('#student-pick').empty();
 
-        for (var index in selectedStudents) {
-            var $option = $('<option>').text(selectedStudents[index].name);
-            $('#student-pick').append($option);
-        }
+        selectedStudents.forEach(function (student) {
+            $('#student-pick').append($('<option>')
+                .text(student.name)
+                .data('github', student.github));
+        });
+
         $('#student-pick').trigger('change');
     });
+
     $('#student-pick').on('change', function () {
-        var info = getStudentInfo(studentsList, $(this).val());
-        info = ['Github for ', info[0], ' is ', info[1]];
-        $('#github-info').text(info.join(''));
+        var selected = $(this).find('option:selected');
+        $('#github-info')
+            .text(['Github for ',
+                selected.text(),
+                ' is ',
+                selected.data('github')]
+                .join(''));
     });
+
     $.getJSON('http://localhost:3000/students',
         function(students, textStatus) {
-            studentsList = students;
             console.log(textStatus);
-            var courses = getCourses(students);
-            for (var course in courses) {
-                var $option = $('<option>').text(course);
-                $('#course-pick').append($option);
+
+            groupedStudents = groupBy(students, function (student) {
+                return student.course;
+            });
+
+            for (var course in groupedStudents) {
+                $('#course-pick').append($('<option>')
+                    .text(course));
             }
+
             $('#course-pick').trigger('change');
             $('#student-pick').trigger('change');
         });
 });
 
-var getCourses = function (students) {
-    var courses = {};
-    students.forEach(function (student) {
-        if (courses[student.course] === undefined) {
-            courses[student.course] = true;
+var getGithub = function (students, name) {
+    console.log(name);
+};
+
+var groupBy = function (list, func) {
+    var result = {},
+        current;
+    list.forEach(function (item) {
+        current = func(item);
+        if (result[current] === undefined) {
+            result[current] = [item];
+        } else {
+            result[current].push(item);
         }
     });
-    return courses;
-};
-
-var getStudentsByCourse = function (students, course) {
-    return students.filter(function (student) {
-        return student.course === course;
-    });
-};
-
-var getStudentInfo = function (students, name) {
-    var student = students.filter(function (s) {
-        return s.name === name;
-    })[0];
-    return [student.name, student.github];
+    return result;
 };
