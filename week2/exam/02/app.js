@@ -18,7 +18,8 @@ $(document).ready(function () {
         },
         setTimer = function (direction) {
             $('#reset').trigger('click');
-            timer = time($minutes.val(), $seconds.val());
+            timer = time(parseInt($minutes.val(), 10) * 60 +
+                parseInt($seconds.val()));
             intervalID = setInterval(count(timer, direction), 1000);
         };
 
@@ -36,37 +37,26 @@ $(document).ready(function () {
     });
 });
 
-var time = function (minutesTo, secondsTo) {
-    var minutesFrom = 0,
-        secondsFrom = 0,
-        printable = function (mins, secs) {
-            return [mins < 10 ? '0' + mins : mins,
-                    ':',
-                    secs < 10 ? '0' + secs : secs].join('');
-        };
-    minutesTo = parseInt(minutesTo, 10);
-    secondsTo = parseInt(secondsTo, 10);
-
+var time = function (secondsTo) {
+    var printable = function (seconds) {
+            return [parseInt((seconds / 60) / 10, 10),
+                parseInt((seconds / 60) % 10, 10),
+                ':',
+                parseInt((seconds % 60) / 10, 10),
+                parseInt(seconds % 10, 10)].join('');
+    },
+    secondsFrom = 0;
     return {
         up: function () {
             secondsFrom += 1;
-            if (secondsFrom > 59) {
-                secondsFrom = 0;
-                minutesFrom += 1;
-            }
-            return printable(minutesFrom, secondsFrom);
+            return printable(secondsFrom);
         },
         down: function () {
             secondsTo -= 1;
-            if (secondsTo < 0) {
-                secondsTo = 59;
-                minutesTo -= 1;
-            }
-            return printable(minutesTo, secondsTo);
+            return printable(secondsTo);
         },
         expired: function () {
-            return minutesFrom === minutesTo &&
-                secondsFrom === secondsTo;
+            return secondsFrom === secondsTo;
         }
     };
 };
