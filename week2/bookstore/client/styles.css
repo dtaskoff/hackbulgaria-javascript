@@ -25,8 +25,6 @@ html, body {
 
 #books-container {
     width: 100%;
-    height: auto;
-    overflow-x: scroll;
 }
 
 .wrapper {
@@ -35,12 +33,15 @@ html, body {
     position: fixed;
     left: 0;
     top: 70%;
-    overflow-y: scroll;
+    overflow-x: scroll;
+    overflow-y: hidden;
     background-color: gray;
-    opacity: 0.9;
+    padding: 3px;
+    opacity: 0.8;
 }
 
 #cart-info {
+    padding: 5px;
     margin-left: 5%;
     width: 15%;
     height: 90%;
@@ -51,6 +52,7 @@ html, body {
 
 #purchased-books-container {
     white-space: nowrap;
+    height: 100%;
 }
 
 .book {
@@ -64,13 +66,21 @@ html, body {
 
 #purchased-books-container > .book {
     width: 10%;
+    height: 95%;
+    max-height: 95%;
+    position: relative;
     background-color: white;
     margin: 3px;
-    opacity: 0.8;
+    opacity: 0.9;
     border-radius: 5%;
 }
 
 #purchased-books-container > .book > h3 {
+    position: relative;
+    float: top;
+    height: 15%;
+    max-height: 15%;
+    overflow: hidden;
     font-size: small;
 }
 
