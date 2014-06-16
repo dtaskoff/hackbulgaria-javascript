@@ -11,6 +11,8 @@ $(document).ready(function () {
         encode = function (book) {
             book.title = $('<div>' + book.title + '</div>').text();
             book.description = $('<div>' + book.description + '</div>').text();
+            book.title = $('<div>' + book.title + '</div>').text();
+            book.description = $('<div>' + book.description + '</div>').text();
         },
         addBook = function (book) {
             encode(book);
@@ -49,7 +51,7 @@ $(document).ready(function () {
         var $div = $(this).closest('.book'),
             id = $div.attr('id').slice(5),
             modal = _.template(description_template, books[id]);
-
+            console.log(modal);
             $(modal).modal({
                 show: true
             });
