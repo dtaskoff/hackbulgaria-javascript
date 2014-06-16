@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Bookstore</title>
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div id="books-container">
-            <h1>HackBulgaria's Bookstore</h1>
-        </div>
+    <div class="header">
+        <h1>Bookstore <small>powered by HackBulgaria</small></h1>
+    </div>
+
+    <div class="mycontainer">
+        <div id="books-container"></div>
         <hr />
         <div class="wrapper">
             <div id="cart-info">
@@ -20,6 +21,8 @@
             <div id="purchased-books-container"></div>
         </div>
     </div>
+    <div class="footer"></div>
+
     <script id="single-book-template" type="text/template">
         <div id="book-<%= id %>" class="book">
             <h3><%= title %></h3>
