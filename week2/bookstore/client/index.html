@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Bookstore</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="books-container">
+            <h1>HackBulgaria's Bookstore</h1>
+        </div>
+        <hr />
+        <div class="wrapper">
+            <div id="cart-info">
+                <h1>Shopping cart:</h1>
+                <p>Total number of pages in cart: <span id="pages">0</span></p>
+            </div>
+            <div id="purchased-books-container"></div>
+        </div>
+    </div>
+    <script id="single-book-template" type="text/template">
+        <div id="book-<%= id %>" class="book">
+            <h3><%= title %></h3>
+            <img src="<%= image_url %>">
+            <p>Average rating: <%= average_rating %></p>
+            <p>ISBN: <%= isbn %></p>
+            <button class="btn btn-info description">Read description</button>
+            <button class="btn btn-success add-to-cart">Add to Cart</button>
+        </div>
+    </script>
+    <script id="purchased-book-template" type="text/template">
+        <div id="book-<%= id %>" class="book">
+            <h3><%= title %></h3>
+            <img src="<%= small_image_url %>">
+            <button class="btn btn-warning remove-from-cart">Remove from cart</button>
+        </div>
+    </script>
+    <script id="description-template" type="text/template">
+        <div class="modal fade" id="description-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <%= title %>
+                </h4>
+              </div>
+              <div class="modal-body">
+                    <%= description %>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </script>
+
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
