@@ -9,7 +9,7 @@
         "average_rating": 4.27
     },
     {
-        "isbn": "055215430X",
+        "isbn": 62310097,
         "title": "Night Watch",
         "image_url": "https://d.gr-assets.com/books/1320518310m/47989.jpg",
         "small_image_url": "https://d.gr-assets.com/books/1320518310s/47989.jpg",
@@ -40,7 +40,7 @@
         "title": "Reaper Man &amp;&#35;40;Discworld, #11&#41;",
         "image_url": "https://d.gr-assets.com/books/1389211958m/34517.jpg",
         "small_image_url": "https://d.gr-assets.com/books/1389211958s/34517.jpg",
-        "num_pages": {},
+        "num_pages": 384,
         "description": "&amp;lt;em&amp;gt;&apos;Death has to happen. Tha'ts what bein' alive is all about. You're alive, and then you're dead. It can't just stop happening.'&amp;lt;/em&amp;gt;&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;But it can. And it has. So what happens after death is now less of a philosophical question than a question of actual reality. On the disc, as here, they need Death. If Death doesn&apos;t come for you, then what are you supposed to do in the meantime? You can't have the undead wandering about like lost souls. There's no telling what might happen, particularly when they discover that life really is only for the living...",
         "average_rating": 4.23
     },
@@ -72,18 +72,16 @@
         "average_rating": 4.23
     },
     {
-        "isbn": "055255264X",
+        "isbn": 552551449,
         "title": "A Hat Full of Sky &amp;&#35;40;Discworld, #32&#41;",
         "image_url": "https://d.gr-assets.com/books/1319037274m/34501.jpg",
         "small_image_url": "https://d.gr-assets.com/books/1319037274s/34501.jpg",
         "num_pages": 352,
-        "description": {},
+        "description": "",
         "average_rating": 4.25
     },
     {
-        "isbn": {
-            "nil": true
-        },
+        "isbn": 60013168,
         "title": "Monstrous Regiment",
         "image_url": "https://d.gr-assets.com/books/1375908503m/34511.jpg",
         "small_image_url": "https://d.gr-assets.com/books/1375908503s/34511.jpg",
