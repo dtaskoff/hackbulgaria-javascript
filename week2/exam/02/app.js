@@ -9,17 +9,20 @@ $(document).ready(function () {
         timer,
         count = function (timer, direction) {
             return function () {
-                $timer.text(timer[direction]);
                 if (timer.expired()) {
                     $('#reset').trigger('click');
                     window.alert('timer expired!');
+                } else {
+                    $timer.text(timer[direction]);
                 }
             };
         },
         setTimer = function (direction) {
             $('#reset').trigger('click');
-            timer = time(parseInt($minutes.val(), 10) * 60 +
-                parseInt($seconds.val()));
+            var minutes = $minutes.val() || 0,
+                seconds = $seconds.val() || 0;
+            timer = time(parseInt(minutes, 10) * 60 +
+                parseInt(seconds, 10));
             intervalID = setInterval(count(timer, direction), 1000);
         };
 
@@ -44,8 +47,10 @@ var time = function (secondsTo) {
                 ':',
                 parseInt((seconds % 60) / 10, 10),
                 parseInt(seconds % 10, 10)].join('');
-    },
-    secondsFrom = 0;
+        },
+        secondsFrom = 0;
+    secondsTo = secondsTo || 0;
+
     return {
         up: function () {
             secondsFrom += 1;
