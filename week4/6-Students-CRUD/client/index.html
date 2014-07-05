@@ -14,7 +14,7 @@
         <ul class='nav nav-pills nav-justified' role='tablist'>
             <li class='active'><a href='#show-students'>Show Students</a></li>
             <li class=''><a href='#add-update-students'>Add/Update Student</a></li>
-            <li class='disabled'><a href='#'>Delete Students</a></li>
+            <li class=''><a href='#delete-students'>Delete Students</a></li>
         </ul>
     </div>
 
@@ -31,10 +31,35 @@
                 <tbody>
                 </tbody>
             </table>
+            <a href='' class='btn btn-primary' id='update-table'>
+                Update Table
+            </a>
         </div>
 
-        <div id='add-update-students'>Add/Update</div>
-        <div>Delete</div>
+        <div id='add-update-students'>
+            <div class='input-group name col-xs-4'>
+                <span class='input-group-addon'>?</span>
+                <input type='text' class='form-control' placeholder='Name'>
+            </div>
+            <div class='input-group fn col-xs-4'>
+                <span class='input-group-addon'>#</span>
+                <input type='text' class='form-control' placeholder='Faculty Number'>
+            </div>
+
+            <button class='btn btn-primary' id='add-update-student'>
+                Add/Update Student</button>
+        </div>
+
+        <div id='delete-students'>
+            <div class='input-group col-xs-4 fn'>
+                <input type='text' class='form-control' placeholder='Faculty Number'>
+                <span class='input-group-btn'>
+                    <button id='delete-student' class='btn btn-default' type='button'>
+                        Delete Student
+                    </button>
+                </span>
+            </div>
+        </div>
     </div>
 
     <script src='bower_components/jquery/dist/jquery.min.js'></script>
