@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students CRUD API</title>
+    <link href='bower_components/bootstrap/dist/css/bootstrap.min.css'
+        rel='stylesheet'></link>
+</head>
+<body>
+    <div class='container'>
+        <h1>Students CRUD API <small>Powered by Hack Bulgaria</small></h1>
+    </div>
+
+    <div class='container'>
+        <ul class='nav nav-pills nav-justified' role='tablist'>
+            <li class='active'><a href='#show-students'>Show Students</a></li>
+            <li class=''><a href='#add-update-students'>Add/Update Student</a></li>
+            <li class='disabled'><a href='#'>Delete Students</a></li>
+        </ul>
+    </div>
+
+    <div class='jumbotron container' id='main-container'>
+        <div id='show-students'>
+            <table class='table table-hover justify'>
+                <thead>
+                    <tr>
+                        <th>Faculty Number</th>
+                        <th>Name</th>
+                        <th>Courses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div id='add-update-students'>Add/Update</div>
+        <div>Delete</div>
+    </div>
+
+    <script src='bower_components/jquery/dist/jquery.min.js'></script>
+    <script src='bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
+    <script src='bower_components/handlebars/handlebars.js'></script>
+    <script src='app.js'></script>
+
+    <script type='text/template' id='student-template'>
+        <tr>
+            <td>{{facultyNumber}}</td>
+            <td>{{name}}</td>
+            <td>{{courses}}</td>
+        </tr>
+    </script>
+</body>
+</html>
