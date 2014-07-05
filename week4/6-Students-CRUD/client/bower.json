@@ -1,0 +1,22 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dtaskoff/hackbulgaria-javascript",
+  "authors": [
+    "dtaskoff <danko@abv.bg>"
+  ],
+  "description": "Students CRUD API",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "handlebars": "~1.3.0",
+    "bootstrap": "~3.2.0"
+  }
+}
