@@ -1,0 +1,33 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title>Variable Names API</title>
+    <link href='bower_components/bootstrap/dist/css/bootstrap.min.css'
+        type='text/css' rel='stylesheet'>
+</head>
+<body>
+    <div class='page-header container'>
+        <h1>Variable Names API <small>by Daniel Taskoff</small></h1>
+    </div>
+
+    <div class='container' id='names-container'>
+    </div>
+
+    <script src='bower_components/jquery/dist/jquery.min.js'></script>
+    <script src='bower_components/handlebars/handlebars.min.js'></script>
+    <script src='app.js'></script>
+
+    <script type='text/template' id='entry-template'>
+        <div class='container form-group'>
+            <div class='col-xs-4'>
+                <input class='form-control name-input' id='{{nameId}}-name'
+                    value='{{name}}'>
+            </div>
+            <div class='col-xs-2'>
+                <button class='btn btn-info disabled' id='{{nameId}}-btn'>
+                    Update Name</button>
+            </div>
+        </div>
+    </script>
+</body>
+</html>
