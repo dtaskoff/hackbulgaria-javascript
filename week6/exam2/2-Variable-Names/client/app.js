@@ -5,6 +5,12 @@ $(document).ready(function () {
     console.log('jquery maybe?');
     var $namesContainer = $('#names-container'),
         entryTemplate = Handlebars.compile($('#entry-template').html()),
+        makeGetRequestTo = function (url, done, error, always) {
+            $.ajax(url)
+                .done(done)
+                .error(error)
+                .always(always);
+        },
         addEntriesToPage = function (entriesArray) {
             entriesArray.forEach(function (entry) {
                 appendEntryToHTML(entry);
@@ -12,38 +18,56 @@ $(document).ready(function () {
         },
         appendEntryToHTML = function (entry) {
             $namesContainer.append(entryTemplate(entry));
+        },
+        makePostRequestTo = function (url, data, done, error, always) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(data)
+            }).done(done)
+            .error(error)
+            .always(always);
+        },
+        getId = function ($inputOrButtonElement) {
+            return $inputOrButtonElement.attr('id').split('-')[0];
+        },
+        clearEntries = function () {
+            $('#names-container').empty();
         };
 
-    $.ajax('http://localhost:8080/names')
-        .done(addEntriesToPage)
-        .error(function () {
+    makeGetRequestTo('http://localhost:8080/names', addEntriesToPage,
+        function error() {
             alert('Couldn\'t get names from server!');
         });
 
     $(document).on('change', '.name-input', function () {
-        var id = $(this).attr('id').split('-')[0],
+        var id = getId($(this)),
             correspondingButton = $('#' + id + '-btn');
         correspondingButton.removeClass('disabled');
     });
 
     $(document).on('click', '.btn', function () {
         var $button = $(this),
-            id = $button.attr('id').split('-')[0],
+            id = getId($(this)),
             newName = $('#' + id + '-name').val();
-
-        $.ajax({
-            url: 'http://localhost:8080/name',
-            type: 'POST',
-            contentType: 'application/json',
-            dataType: 'json',
-            data: JSON.stringify({
+        makePostRequestTo('http://localhost:8080/name',
+            {
                 name: newName,
                 nameId: id
-            })
-        }).done(function () {
-            $button.addClass('disabled');
-        }).always(function (res) {
-            alert(res.status);
+            },
+            function done() {
+                $button.addClass('disabled');
+            },
+            undefined,
+            function always(res) {
+                alert(res.status);
+            });
+        clearEntries();
+        makeGetRequestTo('http://localhost:8080/names', addEntriesToPage,
+            function error() {
+                alert('Couldn\'t refresh entries!');
         });
     });
 });
