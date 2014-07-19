@@ -52,22 +52,24 @@ $(document).ready(function () {
         var $button = $(this),
             id = getId($(this)),
             newName = $('#' + id + '-name').val();
+
         makePostRequestTo('http://localhost:8080/name',
-            {
-                name: newName,
-                nameId: id
-            },
+            { name: newName, nameId: id },
             function done() {
                 $button.addClass('disabled');
+                clearEntries();
+                makeGetRequestTo('http://localhost:8080/names',
+                    addEntriesToPage,
+                    function error() {
+                        alert('Couldn\'t refresh entries!');
+                    });
+                alert('Name succesfully saved.');
             },
-            undefined,
-            function always(res) {
-                alert(res.status);
-            });
-        clearEntries();
-        makeGetRequestTo('http://localhost:8080/names', addEntriesToPage,
             function error() {
-                alert('Couldn\'t refresh entries!');
-        });
+                alert('Couldn\'t save name!');
+            },
+            function always(res) {
+                console.log(res.status);
+            });
     });
 });
