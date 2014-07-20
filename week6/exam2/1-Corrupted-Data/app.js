@@ -11,6 +11,9 @@ var getRepeatableCheckins = function (checkins) {
     checkins.forEach(function (checkin) {
         var hashedCheckin = hash(checkin);
 
+        // only adding checkin to repeatableCheckins,
+        // if it occurs for a second time,
+        // else just increment it's occurrences
         if (occurrencesOfCheckin[hashedCheckin] === undefined) {
             occurrencesOfCheckin[hashedCheckin] = 0;
         } else if (occurrencesOfCheckin[hashedCheckin] === 1) {
