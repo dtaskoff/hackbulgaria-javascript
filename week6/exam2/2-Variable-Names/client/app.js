@@ -5,19 +5,12 @@ $(document).ready(function () {
     console.log('jquery maybe?');
     var $namesContainer = $('#names-container'),
         entryTemplate = Handlebars.compile($('#entry-template').html()),
+
         makeGetRequestTo = function (url, done, error, always) {
             $.ajax(url)
                 .done(done)
                 .error(error)
                 .always(always);
-        },
-        addEntriesToPage = function (entriesArray) {
-            entriesArray.forEach(function (entry) {
-                appendEntryToHTML(entry);
-            });
-        },
-        appendEntryToHTML = function (entry) {
-            $namesContainer.append(entryTemplate(entry));
         },
         makePostRequestTo = function (url, data, done, error, always) {
             $.ajax({
@@ -29,6 +22,14 @@ $(document).ready(function () {
             }).done(done)
             .error(error)
             .always(always);
+        },
+        addEntriesToPage = function (entriesArray) {
+            entriesArray.forEach(function (entry) {
+                appendEntryToHTML(entry);
+            });
+        },
+        appendEntryToHTML = function (entry) {
+            $namesContainer.append(entryTemplate(entry));
         },
         getId = function ($inputOrButtonElement) {
             return $inputOrButtonElement.attr('id').split('-')[0];
