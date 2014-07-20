@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Triangle Drawer</title>
+    <link href='bower_components/bootstrap/dist/css/bootstrap.css'
+        rel='stylesheet' type='text/css'>
+    <link href='styles.css' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class='page-header container'>
+        <h1>Triangle Drawer <small>by Daniel Taskoff</small></h1>
+    </div>
+
+    <div class='page-body container'>
+        <div class='row container'>
+            <div class='col-xs-6 container'>
+                <div class='panel panel-default canvas-holder'>
+                    <canvas id='triangle-canvas'></canvas>
+
+                    <!-- here, we are adjusting the size of our canvas-->
+                    <script>
+                        var canvas = document.getElementById('triangle-canvas');
+                        canvas.width = canvas.parentElement.clientWidth;
+                        canvas.height = canvas.parentElement.clientHeight;
+                    </script>
+                </div>
+            </div>
+
+            <div class='col-xs-3 container'>
+                <div class='panel panel-default'>
+                    <div class='form-group'>
+                        <label for='strokeColourPicker'>
+                            Enter a colour for the stroke:</label>
+                        <input class='form-control'
+                            id='strokeColourPicker' value='#0000ff'>
+
+                        <label for='fillColourPicker'>
+                            Enter a colour for the fill:</label>
+                        <input class='form-control'
+                            id='fillColourPicker' value='#0000ff'>
+
+                        <button class='btn btn-primary' id='colour-pick'>
+                            Pick a colour</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class='row container'>
+            <div class='col-xs-6 container'>
+                <div class='btn-group'>
+                    <button class='btn btn-default' id='clear-canvas'>
+                        Clear Canvas</button>
+                    <button class='btn btn-warning' id='save-canvas'>
+                        Save Canvas</button>
+                    <div class='btn-group'>
+                        <button class='btn btn-info' id='load-canvas'>
+                            Load Canvas</button>
+                        <button class='btn btn-info dropdown-toggle'
+                                data-toggle='dropdown'>
+                            <span class='caret'></span>
+                        </button>
+                        <ul class='dropdown-menu' role='menu'
+                            id='saved-canvases'>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='bower_components/jquery/dist/jquery.min.js'></script>
+    <script src='bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
+    <script src='bower_components/handlebars/handlebars.min.js'></script>
+    <script src='app.js'></script>
+
+    <!-- a handlebars template used to generate available canvases for loading -->
+    <script type='text/template' id='canvas-template'>
+        <li id='{{canvasId}}'><a href='#'>{{canvasName}}</a></li>
+    </script>
+</body>
+</html>
