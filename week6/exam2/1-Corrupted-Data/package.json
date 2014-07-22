@@ -1,0 +1,14 @@
+{
+  "name": "1-Corrupted-Data",
+  "version": "0.0.0",
+  "description": "You are present with `data.json` file that represents checkins for a given period of time in our training hall.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hashtable": "^0.1.4"
+  }
+}
