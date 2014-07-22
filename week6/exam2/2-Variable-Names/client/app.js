@@ -3,7 +3,11 @@
 
 $(document).ready(function () {
     console.log('jquery maybe?');
-    var $namesContainer = $('#names-container'),
+    var SERVER_URLS = {
+            postName: 'http://localhost:8080/name',
+            getNames: 'http://localhost:8080/names'
+        },
+        $namesContainer = $('#names-container'),
         entryTemplate = Handlebars.compile($('#entry-template').html()),
 
         makeGetRequestTo = function (url, done, error, always) {
@@ -38,7 +42,7 @@ $(document).ready(function () {
             $('#names-container').empty();
         };
 
-    makeGetRequestTo('http://localhost:8080/names', addEntriesToPage,
+    makeGetRequestTo(SERVER_URLS.getNames, addEntriesToPage,
         function error() {
             alert('Couldn\'t get names from server!');
         });
@@ -54,12 +58,12 @@ $(document).ready(function () {
             id = getId($(this)),
             newName = $('#' + id + '-name').val();
 
-        makePostRequestTo('http://localhost:8080/name',
+        makePostRequestTo(SERVER_URLS.postName,
             { name: newName, nameId: id },
             function done() {
                 $button.addClass('disabled');
                 clearEntries();
-                makeGetRequestTo('http://localhost:8080/names',
+                makeGetRequestTo(SERVER_URLS.getNames,
                     addEntriesToPage,
                     function error() {
                         alert('Couldn\'t refresh entries!');
