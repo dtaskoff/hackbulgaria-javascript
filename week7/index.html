@@ -7,8 +7,15 @@
     </script>
 </head>
 <body>
-    <div id='matrix'>
+    <table id='matrix'>
+    </table>
 
-    </div>
+    <script id='matrix-row-template' type='text/template'>
+        <tr>
+            {{#each array}}
+                <td><input type="number" id={{this}}></td>
+            {{/each}}
+        </tr>
+    </script>
 </body>
 </html>
